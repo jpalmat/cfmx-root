@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			ref="authProvider" />
+	</security:authentication-manager>
+
+	<bean id="auhtLoginService" class="ec.com.smx.auth.ws.authentication.AuthLoginService" />
+	<bean id="authProvider" class="ec.com.smx.auth.ws.authentication.AuthProvider">
+		<property name="auhtLoginService" ref="auhtLoginService" />
+	</bean>
+
+	<bean id="authEntryPoint" class="ec.com.smx.auth.ws.authentication.AuthEntryPoint" />
+
+	<bean id="authenticationFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationSuccessHandler" ref="authSuccessHandler" />
+	</bean>
+
+	<bean id="authSuccessHandler" class="ec.com.smx.auth.ws.authentication.AuthSuccessHandler" />
+
+	<bean id="teamauthManager" class="ec.com.smx.auth.ws.authentication.AuthManager">
+		<property name="authManager" ref="authenticationManager" />
+	</bean>
+
+	<security:http realm="Protected API" use-expressions="true"
+		auto-config="false" entry-point-ref="authEntryPoint"
+		authentication-manager-ref="authenticationManager" create-session="never">
+		<security:custom-filter ref="authenticationFilter"
+			position="FORM_LOGIN_FILTER" />
+		<security:intercept-url pattern="/auth/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/menu/tree"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/menu/addFavorite"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/menu/removeFavorite"
+			access="isAuthenticated()" />
+	</security:http>
+</beans>

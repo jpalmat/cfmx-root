@@ -1,0 +1,32 @@
+ext {
+	
+	authVersion = '1.0.0-SNAPSHOT'
+	fwkVersion = '2.37.0-SNAPSHOT'
+	corpClient = '1.0.0-SNAPSHOT'
+	mensVersion = '1.10.0-SNAPSHOT'
+	// COMMON
+	junitVersion = '4.12'
+	// DROOLS
+    droolVersion = '6.3.0.Final-redhat-5'
+	
+  libraries = [
+  		"ec.com.smx.frameworkv2:fwk-core":"${fwkVersion}",
+  		"ec.com.kruger:fwk-log-util":"2.2.0-SNAPSHOT",
+  		"junit:junit":"${junitVersion}",
+  		// HIBERNATE
+		"org.hibernate:ejb3-persistence":"1.0.2.GA",
+		"org.hibernate:hibernate-validator":"4.2.0.Final",
+		"org.hibernate:hibernate-core":"3.6.1.Final",
+		"org.hibernate.javax.persistence:hibernate-jpa-2.0-api":"1.0.0.Final",
+		// CORPV2
+		"ec.com.smx.corpv2:corp-vo-cliente":"${corpClient}",
+		// MENSAJERIA
+		"ec.com.smx.mensajeria:mensajeria-cliente":"${mensVersion}",
+		//DROOLS
+		"org.kie:kie-api":"${droolVersion}",
+        "org.drools:drools-core":"${droolVersion}",
+        "org.drools:drools-compiler":"${droolVersion}",
+        "org.eclipse.jdt.core.compiler:ecj":"4.5.1",
+        "eclipse:jdtcore":"3.2.0.v_658",
+  ]
+}

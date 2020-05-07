@@ -1,0 +1,12 @@
+package TypeServer
+dialect "java"
+
+import ec.com.smx.auth.ws.controller.pojo.InfoTypeServer;
+
+rule "type_server"
+    when
+	  	infoTypeServer: InfoTypeServer()
+    then
+    	System.out.println("Entra a verificar el tipo de servidor.");
+    	infoTypeServer.setTypeServer("PER");
+end

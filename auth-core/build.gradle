@@ -1,0 +1,11 @@
+apply plugin: 'java'
+task packageSources(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+  
+artifacts.archives packageSources
+dependencies {        
+	compile project(':auth-client')
+	testCompile group: 'junit', name: 'junit', version:libraries['junit:junit']	
+}

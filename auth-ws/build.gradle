@@ -1,0 +1,59 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.13.RELEASE'
+    id 'java'
+}
+
+bootRepackage.enabled=false
+
+apply plugin: 'war'
+jar.enabled = false
+
+war {
+    archiveName = 'auth-ws.war'
+}
+
+ext['jooq.version'] = '3.1.0'
+ext['gson.version'] = '2.2'
+ext['hibernate.version'] = '3.6.1.Final'
+ext['hibernate-validator.version'] = '4.2.0.Final'
+ext['javax-validation.version'] = '1.0.0.GA'
+
+dependencies {
+
+	compile project(':auth-core')
+	compile project(':auth-client')
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.13.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.13.RELEASE'
+    runtime group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '1.5.13.RELEASE'
+    providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '1.5.13.RELEASE'
+    
+    compile group: 'org.hibernate', name: 'ejb3-persistence', version: libraries['org.hibernate:ejb3-persistence']
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: libraries['org.hibernate:hibernate-validator']
+	compile group: 'org.hibernate', name: 'hibernate-core', version: libraries['org.hibernate:hibernate-core']
+	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version: libraries['org.hibernate.javax.persistence:hibernate-jpa-2.0-api']
+    
+    compile group: 'ec.com.smx.frameworkv2', name: 'fwk-core', version: libraries['ec.com.smx.frameworkv2:fwk-core']
+    
+	compile group: 'ec.com.kruger', name: 'fwk-log-util', version: libraries['ec.com.kruger:fwk-log-util']
+	
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+	
+	compile group: 'commons-httpclient', name:'commons-httpclient', version: '3.1'
+	
+	compile group: 'com.google.code.gson', name:'gson', version: '2.8.2'
+	
+	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.1'
+	
+	compile group: 'ec.com.smx.corpv2', name: 'corp-vo-cliente', version: libraries['ec.com.smx.corpv2:corp-vo-cliente']
+	
+	compile group: 'ec.com.smx.mensajeria', name: 'mensajeria-cliente', version: libraries['ec.com.smx.mensajeria:mensajeria-cliente']
+	
+	compile group: 'org.kie', name: 'kie-api', version: libraries['org.kie:kie-api']
+	compile group: 'org.drools', name: 'drools-core', version: libraries['org.drools:drools-core']   
+	compile group: 'org.drools', name: 'drools-compiler', version: libraries['org.drools:drools-compiler']
+	compile group: 'org.eclipse.jdt.core.compiler', name: 'ecj', version: libraries['org.eclipse.jdt.core.compiler:ecj']
+	compile group: 'eclipse', name: 'jdtcore', version: libraries['eclipse:jdtcore']
+	
+}	
+
+//apply from: "http://proyectos:7990/projects/GP/repos/maven-scripts/browse/exclude.gradle?raw"

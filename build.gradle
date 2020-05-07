@@ -1,0 +1,69 @@
+buildscript {
+  repositories {
+    maven {
+      url "http://svr-kruger1:8081/nexus/content/groups/public/"
+    }
+  }
+
+  dependencies {
+    classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+  }
+}
+//apply plugin: "org.sonarqube"
+apply plugin: 'project-report'
+apply from: './auth-gradle/auth.gradle'
+apply from: "http://proyectos:7990/projects/GP/repos/maven-scripts/browse/sonarqube.gradle?raw"
+
+allprojects  {
+  apply plugin: 'eclipse'
+  group = 'ec.com.smx.auth'
+  version = "${authVersion}"
+}
+
+ htmlDependencyReport {
+    projects = project.allprojects    
+}
+
+
+subprojects {
+  apply plugin: 'java'  
+  //Script para la publicacion y descarga de artefactos en el Nexus
+  apply from: "http://10.190.17.78:7990/projects/GP/repos/maven-scripts/browse/publish-maven.gradle?raw"
+  //Script para aplicacion de reglas PMD desde servidor
+  apply from: "http://10.190.17.78:7990/projects/GP/repos/maven-scripts/browse/pmd-check.gradle?raw"  
+  //Script para la configuracion de los proyectos como proyectos Eclipse
+  apply from: "http://10.190.17.78:7990/projects/GP/repos/maven-scripts/browse/eclipse-config.gradle?raw"
+  
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+    
+ 
+ configurations{
+ 
+		compile.exclude module: 'spring-asm'
+		
+		all {
+			resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+				def module = details.requested.group + ":" + details.requested.name
+				def overrideVersion = libraries[module]
+				
+				if( details.requested.version == null || details.requested.version.isEmpty()){
+					throw new GradleException("La version del artefacto $module no puede ser nula")
+				}			
+				if (overrideVersion != null && !overrideVersion.isEmpty()) {
+					details.useVersion overrideVersion
+					println "$module=$overrideVersion"
+				}
+				else{
+					println "$module=$details.requested.version"
+				}
+			}  
+		}
+   }  
+  //sonarqube {
+	//properties{
+		//property "sonar.sourceEncoding", "UTF-8"
+		//property "sonar.projectKey", "Device WS"
+	//}
+  //}
+}

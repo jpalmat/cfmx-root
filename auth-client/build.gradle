@@ -1,0 +1,11 @@
+apply plugin: 'java'
+task packageSources(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+  
+artifacts.archives packageSources
+dependencies {   
+    compile group: 'ec.com.kruger', name: 'fwk-log-util', version:libraries['ec.com.kruger:fwk-log-util']
+   
+}         

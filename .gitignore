@@ -1,0 +1,11 @@
+auth-client/build/
+auth-core/build/
+auth-ws/build/
+auth-client/bin/
+auth-core/bin/
+auth-ws/bin/
+
+
+auth-ws-ear/build/
+auth-gradle/bin/
+auth-gradle/build/

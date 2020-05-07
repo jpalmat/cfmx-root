@@ -1,0 +1,6 @@
+rootProject.name = 'cfmx-root'
+include ':auth-ws'
+include ':auth-ws-ear'
+include ':auth-gradle'
+include ':auth-client'
+include ':auth-core'

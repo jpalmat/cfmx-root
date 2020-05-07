@@ -1,0 +1,30 @@
+apply plugin: 'ear'
+uploadArchives.enabled = false
+
+dependencies {
+  deploy project(path:':auth-ws', configuration: 'archives')
+}
+
+configurations.earlib.exclude module: 'spring-asm'
+configurations.earlib.exclude group: 'org.richfaces.core'
+configurations.earlib.exclude group: 'org.richfaces.ui'
+configurations.earlib.exclude group: 'org.richfaces.cdk'
+configurations.earlib.exclude group: 'org.primefaces'
+configurations.earlib.exclude group: 'javax.servlet'
+configurations.earlib.exclude group: 'javax.annotation'
+configurations.earlib.exclude group: 'javax.servlet.jsp.jstl'
+configurations.earlib.exclude group: 'org.glassfish'
+configurations.earlib.exclude group: 'javax'
+configurations.earlib.exclude group: 'javax.servlet'
+configurations.earlib.exclude group: 'hibernate-validator'
+configurations.earlib.exclude group: 'javax.faces'
+configurations.earlib.exclude group: 'javax.faces-api'
+
+
+ear {
+  ear {
+      deploymentDescriptor { 
+        webModule("auth-ws.war", "authProvider") 
+      }
+  }
+}
